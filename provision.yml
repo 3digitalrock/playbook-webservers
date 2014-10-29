@@ -65,6 +65,9 @@
     
     - name: Copy nginx configuration file.
       copy: src=conf/nginx.conf dest=/etc/nginx/nginx.conf
+      
+    - name: Create Nginx service
+      copy: src=conf/nginx_upstart.conf dest=/etc/init/nginx.conf backup=yes mode=0644
       notify: restart nginx
       
     - name: Copy web server startup script
