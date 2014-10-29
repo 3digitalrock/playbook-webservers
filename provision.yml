@@ -1,7 +1,5 @@
 ---
 - name: Sedimentary Provisioning
-  vars_files:
-    - vars.yml
   hosts: tag_Type_sedimentary
   serial: 1
   max_fail_percentage: 49
