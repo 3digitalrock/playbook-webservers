@@ -67,11 +67,11 @@
       copy: src=conf/nginx.conf dest=/etc/nginx/nginx.conf
       
     - name: Create Nginx service
-      copy: src=conf/nginx_upstart.conf dest=/etc/init/nginx.conf backup=yes mode=0644
-      notify: restart nginx
+      copy: src=conf/nginx_service dest=/etc/init.d/nginx mode=0755
+      notify: start nginx
       
     - name: Copy web server startup script
-      template: src=conf/{{ type_name }}_startup.conf.j2 dest=/etc/init/{{ type_name }}.conf backup=yes mode=0644
+      template: src=conf/{{ type_name }}_startup.conf.j2 dest=/etc/init/{{ type_name }}.conf mode=0644
     
   handlers:
     - include: handlers.yml
