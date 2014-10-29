@@ -1,0 +1,17 @@
+---
+- hosts: tag_Type_sedimentary
+  vars_files:
+    - vars.yml
+  serial: 1
+  max_fail_percentage: 49
+  sudo: true
+  gather_facts: false
+  
+  tasks:
+  - name: Pull sources from the repository.
+    git: repo={{ type_repo }} dest={{ type_root }} version={{ branch }}
+    notify:
+      - restart web server
+      
+  - name: Upload configuration.
+    copy: src="{{ lookup('file', '/var/lib/awx/configs/{{ type_name }}.env') }}" dest={{ type_root }}/config/.env
