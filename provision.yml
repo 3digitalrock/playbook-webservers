@@ -25,11 +25,14 @@
     - name: Create the SSH directory.
       file: state=directory path=/home/{{ type_name }}/.ssh
       
-    - name: Set up SSH key
+    - name: Check SSH key
       authorized_key: user="{{ type_name }}"
+                      state=present
                       key="{{ lookup('file', '/var/lib/awx/.ssh/github.pub') }}"
-                      path=/home/{{ type_name }}/.ssh
                       manage_dir=no
+                      
+    - name: Copy SSH key
+      copy: src=/var/lib/awx/.ssh/github dest=/home/{{ type_name }}/.ssh/github mode=0600
                       
     - name: Download Pagespeed Nginx module
       get_url: url=https://github.com/pagespeed/ngx_pagespeed/archive/release-{{ nps_version }}-beta.zip
