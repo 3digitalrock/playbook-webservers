@@ -1,4 +1,4 @@
-3DRS Playbooks
+Sedimentary Playbook
 =========
 
-It controls the servers.
+It controls the web servers.
