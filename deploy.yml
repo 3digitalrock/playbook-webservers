@@ -1,7 +1,5 @@
 ---
 - hosts: tag_Type_sedimentary
-  vars_files:
-    - vars.yml
   serial: 1
   max_fail_percentage: 49
   sudo: true
