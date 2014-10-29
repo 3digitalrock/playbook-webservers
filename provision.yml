@@ -9,17 +9,17 @@
   gather_facts: false
   tasks:
     - name: Create the server directory.
-      file: state=directory path={{ type_root }}
+      file: state=directory path="{{ type_root }}"
       
     - name: Create user.
-      user: home=/home/{{ type_name }} name={{ type_name }} state=present
+      user: home=/home/{{ type_name }} name="{{ type_name }}" state=present
       
     - name: Update the server directory
-      file: group={{ type_name }} owner={{ type_name }} mode=755 state=directory path={{ type_root }}
+      file: group="{{ type_name }}" owner="{{ type_name }}" mode=755 state=directory path="{{ type_root }}"
       
     - name: Install system packages
       apt: pkg={{ item }} state=installed update-cache=yes
-      with_items: {{ system_packages }}
+      with_items: "{{ system_packages }}"
       
     - name: Create alternatives link for Node
       alternatives: link=/usr/bin/node name=nodejs path=/usr/bin/nodejs
@@ -28,7 +28,7 @@
       file: state=directory path=/home/{{ type_name }}/.ssh
       
     - name: Set up SSH key
-      authorized_key: user={{ type_name }}
+      authorized_key: user="{{ type_name }}"
                       key="{{ lookup('file', '/var/lib/awx/.ssh/github.pub') }}"
                       path=/home/{{ type_name }}/.ssh
                       manage_dir=no
