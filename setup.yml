@@ -1,0 +1,6 @@
+---
+- name: Sedimentary Test
+  hosts: tag_Type_sedimentary
+  tasks:
+    - name: Echo echo echo
+      shell: echo "It works!"
