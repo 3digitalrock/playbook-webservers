@@ -40,7 +40,7 @@
     - name: Copy web server startup script
       template: src=conf/{{ type_name }}_startup.conf.j2 dest=/etc/init/{{ type_name }}.conf backup=yes mode=0644
     
-    handlers:
-      - include: handlers.yml
+  handlers:
+    - include: handlers.yml
       
 - include: deploy.yml
