@@ -11,7 +11,7 @@
     git: repo="{{ type_repo }}"
          dest="{{ type_root }}"
          version="{{ branch }}"
-         accept_hostkey=yes		
+         accept_hostkey=yes
          key_file=/home/{{ type_name }}/.ssh/github
     notify:
       - restart {{ type_name }} server
