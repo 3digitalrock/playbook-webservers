@@ -12,7 +12,7 @@
     - name: Create user.
       user: home=/home/{{ type_name }} name="{{ type_name }}" state=present
       
-    - name: Update the server directory
+    - name: Create the server directory
       file: group="{{ type_name }}" owner="{{ type_name }}" mode=755 state=directory path="{{ type_root }}"
       
     - name: Install system packages
