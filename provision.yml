@@ -26,6 +26,8 @@
       file: state=directory path=/home/{{ type_name }}/.ssh
       
     - name: Check SSH key
+      sudo_user: "{{ type_name }}"
+      ignore_errors: yes
       authorized_key: user="{{ type_name }}"
                       state=present
                       key="{{ lookup('file', '/var/lib/awx/.ssh/github.pub') }}"
