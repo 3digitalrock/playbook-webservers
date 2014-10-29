@@ -30,6 +30,34 @@
                       key="{{ lookup('file', '/var/lib/awx/.ssh/github.pub') }}"
                       path=/home/{{ type_name }}/.ssh
                       manage_dir=no
+                      
+    - name: Download Pagespeed Nginx module
+      get_url: url=https://github.com/pagespeed/ngx_pagespeed/archive/release-{{ nps_version }}-beta.zip
+               dest=/home/{{ type_name }}/release-{{ nps_version }}-beta.zip
+      
+    - name: Unzip Pagespeed Nginx module
+      command: unzip -q /home/{{ type_name }}/release-{{ nps_version }}-beta.zip -d /home/{{ type_name }}
+      
+    - name: Download Pagespeed psol
+      get_url: url=https://dl.google.com/dl/page-speed/psol/{{ nps_version }}.tar.gz
+               dest=/home/{{ type_name }}/ngx_pagespeed-release-{{ nps_version }}-beta/{{ nps_version }}.tar.gz
+               
+    - name: Ungzip Pagespeed psol
+      command: tar -xzf /home/{{ type_name }}/ngx_pagespeed-release-{{ nps_version }}-beta/{{ nps_version }}.tar.gz -C /home/{{ type_name }}/ngx_pagespeed-release-{{ nps_version }}-beta/
+    
+    - name: Download Nginx
+      get_url: url=http://nginx.org/download/nginx-{{ nginx_version }}.tar.gz
+               dest=/home/{{ type_name }}/nginx-{{ nginx_version }}.tar.gz
+               
+    - name: Ungzip Nginx
+      command: tar -xzf /home/{{ type_name }}/nginx-{{ nginx_version }}.tar.gz -C /home/{{ type_name }}
+      
+    - name: Build Nginx with Pagespeed
+      shell: 'cd /home/{{ type_name }}/nginx-{{ nginx_version }};{{ item }}'
+      with_items:
+        - ./configure --add-module=/home/{{ type_name }}/ngx_pagespeed-release-{{ nps_version }}-beta --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf --with-ipv6 --with-http_stub_status_module
+        - make
+        - make install
     
     - name: Copy nginx configuration file.
       copy: src=conf/nginx.conf dest=/etc/nginx/nginx.conf
