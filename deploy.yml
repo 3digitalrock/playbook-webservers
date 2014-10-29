@@ -7,9 +7,9 @@
   
   tasks:
   - name: Pull sources from the repository.
-    git: repo={{ type_repo }} dest={{ type_root }} version={{ branch }}
+    git: repo={{ type_repo }} dest={{ type_root }} version={{ branch }} accept_hostkey=yes
     notify:
-      - restart web server
+      - restart {{ type_name }} server
       
   - name: Upload configuration.
     copy: src="{{ lookup('file', '/var/lib/awx/configs/{{ type_name }}.env') }}" dest={{ type_root }}/config/.env
