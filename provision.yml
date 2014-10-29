@@ -23,12 +23,13 @@
       alternatives: link=/usr/bin/node name=nodejs path=/usr/bin/nodejs
       
     - name: Create the SSH directory.
-      sudo_user:"{{ type_name }}"
       file: state=directory path=/home/{{ type_name }}/.ssh
                       
     - name: Copy SSH key
-      sudo_user:"{{ type_name }}"
       copy: src=/var/lib/awx/.ssh/github dest=/home/{{ type_name }}/.ssh/github mode=0600
+      
+    - name: Change home permissions
+      file: state=directory path=/home/{{ type_name }} owner={{ type_name }} group={{ type_name }}
                       
     - name: Download Pagespeed Nginx module
       get_url: url=https://github.com/pagespeed/ngx_pagespeed/archive/release-{{ nps_version }}-beta.zip
