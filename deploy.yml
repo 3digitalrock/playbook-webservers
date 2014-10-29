@@ -7,7 +7,11 @@
   
   tasks:
   - name: Pull sources from the repository.
-    git: repo={{ type_repo }} dest={{ type_root }} version={{ branch }} accept_hostkey=yes
+    git: repo="{{ type_repo }}"
+         dest="{{ type_root }}"
+         version="{{ branch }}"
+         accept_hostkey=yes
+         key_file=/home/{{ type_name }}/.ssh/github
     notify:
       - restart {{ type_name }} server
       
