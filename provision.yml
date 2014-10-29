@@ -6,9 +6,6 @@
   sudo: true
   gather_facts: false
   tasks:
-    - name: Create the server directory.
-      file: state=directory path="{{ type_root }}"
-      
     - name: Create user.
       user: home=/home/{{ type_name }} name="{{ type_name }}" state=present
       
