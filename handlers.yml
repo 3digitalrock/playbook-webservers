@@ -1,4 +1,8 @@
 ---
+- name: start nginx
+  service: name=nginx state=started
+  sudo_user: root
+
 - name: restart nginx
   service: name=nginx state=restarted
   sudo_user: root
