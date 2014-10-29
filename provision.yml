@@ -17,7 +17,7 @@
       
     - name: Install system packages
       apt: pkg={{ item }} state=installed update-cache=yes
-      with_items: "{{ system_packages }}"
+      with_items: system_packages
       
     - name: Create alternatives link for Node
       alternatives: link=/usr/bin/node name=nodejs path=/usr/bin/nodejs
