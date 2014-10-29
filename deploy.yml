@@ -3,6 +3,7 @@
   serial: 1
   max_fail_percentage: 49
   sudo: true
+  sudo_user: "{{ type_name }}"
   gather_facts: false
   
   tasks:
@@ -10,6 +11,8 @@
     git: repo="{{ type_repo }}"
          dest="{{ type_root }}"
          version="{{ branch }}"
+         accept_hostkey=yes		
+         key_file=/home/{{ type_name }}/.ssh/github
     notify:
       - restart {{ type_name }} server
       
