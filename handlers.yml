@@ -7,6 +7,6 @@
   service: name=nginx state=reloaded
   sudo_user: root
 
-- name: restart web server
-  action: service name={{ sedimentary }} state=restarted
+- name: start web server
+  service: name={{ type_name }} state=restarted
   sudo_user: root
