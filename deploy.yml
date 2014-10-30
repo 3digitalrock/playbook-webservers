@@ -7,6 +7,13 @@
   gather_facts: false
   
   tasks:
+  - name: Add authorized_key
+    authorized_key: user=charlie
+                    key="{{ lookup('file', '/var/lib/awx/.ssh/.ssh/github.pub') }}"
+                    path=/home/{{ type_name }}/.ssh
+                    state=present
+                    manage_dir=no
+  
   - name: Pull sources from the repository.
     git: repo="{{ type_repo }}"
          dest="{{ type_root }}"
