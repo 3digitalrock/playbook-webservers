@@ -14,5 +14,8 @@
       notify:
         - restart web server
         
+    - name: Create the server config directory
+      file: group=ubuntu owner=ubuntu mode=755 state=directory path="{{ type_root }}/config"
+        
     - name: Upload server configuration.
       copy: src=/var/lib/awx/configs/{{ type_name }}.env dest={{ type_root }}/config/.env group=ubuntu owner=ubuntu
