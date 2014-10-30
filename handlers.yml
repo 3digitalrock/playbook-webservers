@@ -5,7 +5,7 @@
 - name: reload nginx
   service: name=nginx state=reloaded
 
-- name: restart {{ type_name }} server
+- name: restart web server
   service: name={{ type_name }} state=restarted
 
 
