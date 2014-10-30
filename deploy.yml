@@ -12,7 +12,6 @@
            version="{{ branch }}"
            key_file=/home/{{ type_name }}/.ssh/github
            force=yes
-           accept_host=yes
            ssh_opts="-o StrictHostKeyChecking=no"
       notify:
         - restart {{ type_name }} server
