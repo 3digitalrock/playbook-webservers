@@ -5,6 +5,7 @@
   max_fail_percentage: 49
   sudo: true
   gather_facts: false
+  remote_user: ubuntu
   tasks:
     - name: Verify ubuntu user exists
       user: home=/home/ubuntu name=ubuntu state=present
