@@ -3,6 +3,7 @@
   serial: 1
   max_fail_percentage: 49
   gather_facts: false
+  sudo: yes
   
   tasks:
     - name: "(ssh-agent hack: grant access to {{ type_name }})"
@@ -12,8 +13,6 @@
       acl: name="{{ lookup('env','SSH_AUTH_SOCK') }}" etype=user entity={{ type_name }} permissions="rwx" state=present
 
     - name: Copy /etc/sudoers.d/ssh_auth_sock into place
-      sudo: yes
-      sudo_user: root
       copy: src=/var/lib/awx/configs/3drs_sudoers dest=/etc/sudoers.d/3drs_sudoers validate='visudo -cf %s' owner=root group=root mode=0440
     
     - name: Pull sources from the repository.
