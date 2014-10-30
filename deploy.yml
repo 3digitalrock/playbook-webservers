@@ -16,10 +16,7 @@
       # SSH-agent socket is forwarded for the current user only (0700 file). Let's change it
       # See: https://github.com/ansible/ansible/issues/7235
       # See: http://serverfault.com/questions/107187/ssh-agent-forwarding-and-sudo-to-another-user
-      acl: name={{ item }} etype=user entity={{ type_name }} permissions="rwx" state=present
-      with_items:
-        - "{{ lookup('env','SSH_AUTH_SOCK')|dirname }}"
-        - "{{ lookup('env','SSH_AUTH_SOCK') }}"
+      acl: name="{{ lookup('env','SSH_AUTH_SOCK') }}" etype=user entity={{ type_name }} permissions="rwx" state=present
     
     - name: Pull sources from the repository.
       sudo: yes
