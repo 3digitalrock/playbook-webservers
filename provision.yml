@@ -61,7 +61,9 @@
       
     - name: Create Nginx service
       copy: src=conf/nginx_service dest=/etc/init.d/nginx mode=0755
-      notify: start nginx
+      
+    - name: Start nginx
+      service: name=nginx state=started
       
     - name: Copy web server startup script
       template: src=conf/{{ type_name }}_startup.conf.j2 dest=/etc/init/{{ type_name }}.conf mode=0644
