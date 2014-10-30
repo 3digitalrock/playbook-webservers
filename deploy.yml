@@ -13,6 +13,7 @@
            accept_hostkey=yes
            ssh_opts="-o ForwardAgent=yes"
            key_file=/home/ubuntu/.ssh/github
+           update=no
       notify:
         - restart {{ type_name }} server
         
