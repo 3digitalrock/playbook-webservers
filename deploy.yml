@@ -10,7 +10,6 @@
       git: repo="{{ type_repo }}"
            dest="{{ type_root }}"
            version="{{ branch }}"
-           key_file=/home/{{ type_name }}/.ssh/github
            force=yes
            ssh_opts="-o StrictHostKeyChecking=no"
       notify:
