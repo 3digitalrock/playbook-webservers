@@ -10,10 +10,11 @@
            dest="{{ type_root }}"
            version="{{ branch }}"
            force=yes
-           ssh_opts="-o StrictHostKeyChecking=no -o ForwardAgent=yes"
+           accept_hostkey
+           ssh_opts="-o ForwardAgent=yes"
       notify:
         - restart {{ type_name }} server
         
-    - name: Upload configuration.
+    - name: Upload server configuration.
       sudo: yes
       copy: src=/var/lib/awx/configs/{{ type_name }}.env dest={{ type_root }}/config/.env
