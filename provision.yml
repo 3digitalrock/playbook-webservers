@@ -12,8 +12,11 @@
     - name: Create the SSH directory.
       file: state=directory path=/home/ubuntu/.ssh group=ubuntu owner=ubuntu
                       
-    - name: Copy SSH key
+    - name: Copy Github Deploy SSH key
       copy: src=/var/lib/awx/.ssh/github dest=/home/ubuntu/.ssh/github mode=0600 group=ubuntu owner=ubuntu
+      
+    - name: Copy Compose SSH key
+      copy: src=/var/lib/awx/.ssh/compose dest=/home/ubuntu/.ssh/compose mode=0600 group=ubuntu owner=ubuntu
       
     - name: Copy SSH config file
       copy: src=/var/lib/awx/.ssh/config dest=/home/ubuntu/.ssh/config group=ubuntu owner=ubuntu
@@ -24,12 +27,15 @@
     - name: Make sure the authorized_key file exists
       file: path=/home/ubuntu/.ssh/authorized_keys state=touch group=ubuntu owner=ubuntu
   
-    - name: Add Github to authorized_key
+    - name: Add SSH keys to authorized_key
       authorized_key: user=ubuntu
-                      key="{{ lookup('file', '/var/lib/awx/.ssh/github.pub') }}"
+                      key="{{ item }}"
                       path=/home/ubuntu/.ssh/authorized_keys
                       state=present
                       manage_dir=no
+      with_items:
+        - "{{ lookup('file', '/var/lib/awx/.ssh/github.pub') }}"
+        - "{{ lookup('file', '/var/lib/awx/.ssh/compose.pub') }}"
       
     - name: Create the server directory
       file: group=ubuntu owner=ubuntu mode=755 state=directory path="{{ type_root }}"
@@ -52,6 +58,9 @@
       
     - name: Create the supervisord log directory.
       file: state=directory path=/var/log/supervisor group=root owner=root
+      
+    - name: Start supervisord and add to boot
+      service: name=supervisord state=started enabled=yes
                       
     - name: Download Pagespeed Nginx module
       get_url: url=https://github.com/pagespeed/ngx_pagespeed/archive/release-{{ nps_version }}-beta.zip
@@ -87,8 +96,8 @@
     - name: Create Nginx service
       copy: src=conf/nginx_service dest=/etc/init.d/nginx mode=0755
       
-    - name: Start nginx
-      service: name=nginx state=restarted
+    - name: Start nginx and add to boot
+      service: name=nginx state=started enabled=yes
     
   handlers:
     - include: handlers.yml
