@@ -7,21 +7,24 @@
   gather_facts: false
   
   tasks:
-  - name: Add authorized_key
-    authorized_key: user="{{ type_name }}"
-                    key="{{ lookup('file', '/var/lib/awx/.ssh/.ssh/github.pub') }}"
-                    path=/home/{{ type_name }}/.ssh
-                    state=present
-                    manage_dir=no
+    - name: Make sure the authorized_key file exists
+      file: path=/home/{{ type_name }}/.ssh/authorized_key state=touch group="{{ type_name }}" owner="{{ type_name }}"
   
-  - name: Pull sources from the repository.
-    git: repo="{{ type_repo }}"
-         dest="{{ type_root }}"
-         version="{{ branch }}"
-         accept_hostkey=yes
-         key_file=/home/{{ type_name }}/.ssh/github
-    notify:
-      - restart {{ type_name }} server
-      
-  - name: Upload configuration.
-    copy: src="{{ lookup('file', '/var/lib/awx/configs/{{ type_name }}.env') }}" dest={{ type_root }}/config/.env
+    - name: Add authorized_key
+      authorized_key: user="{{ type_name }}"
+                      key="{{ lookup('file', '/var/lib/awx/.ssh/.ssh/github.pub') }}"
+                      path=/home/{{ type_name }}/.ssh
+                      state=present
+                      manage_dir=no
+    
+    - name: Pull sources from the repository.
+      git: repo="{{ type_repo }}"
+           dest="{{ type_root }}"
+           version="{{ branch }}"
+           accept_hostkey=yes
+           key_file=/home/{{ type_name }}/.ssh/github
+      notify:
+        - restart {{ type_name }} server
+        
+    - name: Upload configuration.
+      copy: src="{{ lookup('file', '/var/lib/awx/configs/{{ type_name }}.env') }}" dest={{ type_root }}/config/.env
