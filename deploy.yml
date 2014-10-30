@@ -4,11 +4,9 @@
   max_fail_percentage: 49
   gather_facts: false
   sudo: true
+  sudo_user: "{{ type_user }}"
   
   tasks:
-    - name: Copy /etc/sudoers.d/ssh_auth_sock into place
-      copy: content='Defaults env_keep += "SSH_AUTH_SOCK"' dest='/etc/sudoers.d/ssh_auth_sock' validate='visudo -cf %s' owner=root group=root mode=0440
-      
     - name: Pull sources from the repository.
       git: repo="{{ type_repo }}"
            dest="{{ type_root }}"
