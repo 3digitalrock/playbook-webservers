@@ -20,4 +20,4 @@
       
     - name: Restart application server
       sudo: yes
-      supervisorctl: name={{ type_name }} state=restarted config=/etc/supervisor.conf
+      supervisorctl: name={{ type_name }} state=restarted
