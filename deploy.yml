@@ -11,7 +11,7 @@
            dest="{{ type_root }}"
            version="{{ branch }}"
            force=yes
-           ssh_opts="-o StrictHostKeyChecking=no"
+           ssh_opts="-o StrictHostKeyChecking=no -o ForwardAgent=yes"
       notify:
         - restart {{ type_name }} server
         
