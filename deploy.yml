@@ -4,7 +4,7 @@
   max_fail_percentage: 49
   gather_facts: false
   sudo: true
-  sudo_user: "{{ type_user }}"
+  sudo_user: "{{ type_name }}"
   
   tasks:
     - name: Pull sources from the repository.
