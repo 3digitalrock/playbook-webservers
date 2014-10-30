@@ -6,11 +6,11 @@
   sudo: true
   gather_facts: false
   tasks:
-    - name: Create user.
-      user: home=/home/{{ type_name }} name="{{ type_name }}" state=present
+    - name: Verify ubuntu user exists
+      user: home=/home/ubuntu name=ubuntu state=present
       
     - name: Create the server directory
-      file: group="{{ type_name }}" owner="{{ type_name }}" mode=755 state=directory path="{{ type_root }}"
+      file: group=ubuntu owner=ubuntu mode=755 state=directory path="{{ type_root }}"
       
     - name: Install system packages
       apt: pkg={{ item }} state=installed update-cache=yes
@@ -20,52 +20,52 @@
       alternatives: link=/usr/bin/node name=nodejs path=/usr/bin/nodejs
       
     - name: Create the SSH directory.
-      file: state=directory path=/home/{{ type_name }}/.ssh group="{{ type_name }}" owner="{{ type_name }}"
+      file: state=directory path=/home/ubuntu/.ssh group=ubuntu owner=ubuntu
                       
     - name: Copy SSH key
-      copy: src=/var/lib/awx/.ssh/github dest=/home/{{ type_name }}/.ssh/github mode=0600 group="{{ type_name }}" owner="{{ type_name }}"
+      copy: src=/var/lib/awx/.ssh/github dest=/home/ubuntu/.ssh/github mode=0600 group=ubuntu owner=ubuntu
       
     - name: Copy SSH config file
-      copy: src=/var/lib/awx/.ssh/config dest=/home/{{ type_name }}/.ssh/config group="{{ type_name }}" owner="{{ type_name }}"
+      copy: src=/var/lib/awx/.ssh/config dest=/home/ubuntu/.ssh/config group=ubuntu owner=ubuntu
       
     - name: Make sure the known_hosts file exists
-      file: path=/home/{{ type_name }}/.ssh/known_hosts state=touch group="{{ type_name }}" owner="{{ type_name }}"
+      file: path=/home/ubuntu/.ssh/known_hosts state=touch group=ubuntu owner=ubuntu
       
     - name: Make sure the authorized_key file exists
-      file: path=/home/{{ type_name }}/.ssh/authorized_keys state=touch group="{{ type_name }}" owner="{{ type_name }}"
+      file: path=/home/ubuntu/.ssh/authorized_keys state=touch group=ubuntu owner=ubuntu
   
     - name: Add Github to authorized_key
-      authorized_key: user="{{ type_name }}"
+      authorized_key: user=ubuntu
                       key="{{ lookup('file', '/var/lib/awx/.ssh/github.pub') }}"
-                      path=/home/{{ type_name }}/.ssh/authorized_keys
+                      path=/home/ubuntu/.ssh/authorized_keys
                       state=present
                       manage_dir=no
                       
     - name: Download Pagespeed Nginx module
       get_url: url=https://github.com/pagespeed/ngx_pagespeed/archive/release-{{ nps_version }}-beta.zip
-               dest=/home/{{ type_name }}/release-{{ nps_version }}-beta.zip
+               dest=/home/ubuntu/release-{{ nps_version }}-beta.zip
       
     - name: Unzip Pagespeed Nginx module
-      command: unzip -q /home/{{ type_name }}/release-{{ nps_version }}-beta.zip -d /home/{{ type_name }}
+      command: unzip -q /home/ubuntu/release-{{ nps_version }}-beta.zip -d /home/ubuntu
       
     - name: Download Pagespeed psol
       get_url: url=https://dl.google.com/dl/page-speed/psol/{{ nps_version }}.tar.gz
-               dest=/home/{{ type_name }}/ngx_pagespeed-release-{{ nps_version }}-beta/{{ nps_version }}.tar.gz
+               dest=/home/ubuntu/ngx_pagespeed-release-{{ nps_version }}-beta/{{ nps_version }}.tar.gz
                
     - name: Ungzip Pagespeed psol
-      command: tar -xzf /home/{{ type_name }}/ngx_pagespeed-release-{{ nps_version }}-beta/{{ nps_version }}.tar.gz -C /home/{{ type_name }}/ngx_pagespeed-release-{{ nps_version }}-beta/
+      command: tar -xzf /home/ubuntu/ngx_pagespeed-release-{{ nps_version }}-beta/{{ nps_version }}.tar.gz -C /home/ubuntu/ngx_pagespeed-release-{{ nps_version }}-beta/
     
     - name: Download Nginx
       get_url: url=http://nginx.org/download/nginx-{{ nginx_version }}.tar.gz
-               dest=/home/{{ type_name }}/nginx-{{ nginx_version }}.tar.gz
+               dest=/home/ubuntu/nginx-{{ nginx_version }}.tar.gz
                
     - name: Ungzip Nginx
-      command: tar -xzf /home/{{ type_name }}/nginx-{{ nginx_version }}.tar.gz -C /home/{{ type_name }}
+      command: tar -xzf /home/ubuntu/nginx-{{ nginx_version }}.tar.gz -C /home/ubuntu
       
     - name: Build Nginx with Pagespeed
-      shell: 'cd /home/{{ type_name }}/nginx-{{ nginx_version }};{{ item }}'
+      shell: 'cd /home/ubuntu/nginx-{{ nginx_version }};{{ item }}'
       with_items:
-        - ./configure --add-module=/home/{{ type_name }}/ngx_pagespeed-release-{{ nps_version }}-beta --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf --with-ipv6 --with-http_stub_status_module
+        - ./configure --add-module=/home/ubuntu/ngx_pagespeed-release-{{ nps_version }}-beta --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf --with-ipv6 --with-http_stub_status_module
         - make
         - make install
     
