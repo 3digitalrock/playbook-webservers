@@ -43,6 +43,12 @@
       
     - name: Install supervisord
       easy_install: name=supervisor
+      
+    - name: Copy supervisord conf
+      template: src=conf/supervisord.conf.j2 dest=/etc/supervisord.conf owner=root group=root mode=0644
+      
+    - name: Copy supervisord init script
+      copy: src=conf/supervisord dest=/etc/init.d/supervisord owner=root group=root mode=755
                       
     - name: Download Pagespeed Nginx module
       get_url: url=https://github.com/pagespeed/ngx_pagespeed/archive/release-{{ nps_version }}-beta.zip
