@@ -20,6 +20,3 @@
       
     - name: Restart application server
       supervisorctl: name={{ type_name }} state=restarted config=/etc/supervisor.conf
-
-  handlers:
-    - include: handlers.yml
