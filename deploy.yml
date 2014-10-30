@@ -7,7 +7,7 @@
   tasks:
     - name: Copy /etc/sudoers.d/ssh_auth_sock into place
       sudo: yes
-      copy: "{{ lookup('file', '/var/lib/awx/configs/ssh_auth_sock') }}" dest="/etc/sudoers.d/ssh_auth_sock" validate="visudo -cf %s" owner=root group=root mode=0440
+      copy: src="{{ lookup('file', '/var/lib/awx/configs/ssh_auth_sock') }}" dest=/etc/sudoers.d/ssh_auth_sock validate='visudo -cf %s' owner=root group=root mode=0440
     
     - name: Pull sources from the repository.
       git: repo="{{ type_repo }}"
