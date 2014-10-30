@@ -7,8 +7,6 @@
   
   tasks:
     - name: Pull sources from the repository.
-      sudo: yes
-      sudo_user: "{{ type_name }}"
       git: repo="{{ type_repo }}"
            dest="{{ type_root }}"
            version="{{ branch }}"
