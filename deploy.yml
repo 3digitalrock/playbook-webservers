@@ -3,8 +3,13 @@
   serial: 1
   max_fail_percentage: 49
   gather_facts: false
+  sudo: true
+  sudo_user: {{ type_name }}
   
   tasks:
+    - name: Create SSH config file
+      copy: src=/var/lib/awx/.ssh/config dest=/home/{{ type_name }}/.ssh/config group="{{ type_name }}" owner="{{ type_name }}"
+      
     - name: Pull sources from the repository.
       git: repo="{{ type_repo }}"
            dest="{{ type_root }}"
