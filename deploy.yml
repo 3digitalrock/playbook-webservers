@@ -8,7 +8,7 @@
   
   tasks:
   - name: Add authorized_key
-    authorized_key: user=charlie
+    authorized_key: user="{{ type_name }}"
                     key="{{ lookup('file', '/var/lib/awx/.ssh/.ssh/github.pub') }}"
                     path=/home/{{ type_name }}/.ssh
                     state=present
