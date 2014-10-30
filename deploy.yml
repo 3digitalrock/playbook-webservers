@@ -4,11 +4,10 @@
   max_fail_percentage: 49
   gather_facts: false
   sudo: true
-  sudo_user: "{{ type_name }}"
   
   tasks:
-    - name: Create SSH config file
-      copy: src=/var/lib/awx/.ssh/config dest=/home/{{ type_name }}/.ssh/config group="{{ type_name }}" owner="{{ type_name }}"
+    - name: Copy /etc/sudoers.d/ssh_auth_sock into place
+      copy: content='Defaults env_keep += "SSH_AUTH_SOCK"' dest='/etc/sudoers.d/ssh_auth_sock' validate='visudo -cf %s' owner=root group=root mode=0440
       
     - name: Pull sources from the repository.
       git: repo="{{ type_repo }}"
