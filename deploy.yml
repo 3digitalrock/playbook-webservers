@@ -5,6 +5,13 @@
   gather_facts: false
   
   tasks:
+    - name: Find Git repo SSH host key
+      shell: ssh-keyscan {{ git_repo }}
+      register: git_repo_host_key
+    
+    - name: Add Git repo host key to known_hosts
+      lineinfile: create=yes dest=/home/ubuntu/.ssh/known_hosts line='{{ git_repo_host_key.stdout }}' state=present
+  
     - name: Pull sources from the repository.
       git: repo="{{ type_repo }}"
            dest="{{ type_root }}"
