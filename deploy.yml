@@ -12,6 +12,15 @@
       sudo_user: root
       copy: src=/var/lib/awx/configs/ssh_auth_sock dest=/etc/sudoers.d/ssh_auth_sock validate='visudo -cf %s' owner=root group=root mode=0440
     
+    - name: "(ssh-agent hack: grant access to {{ type_name }})"
+      # SSH-agent socket is forwarded for the current user only (0700 file). Let's change it
+      # See: https://github.com/ansible/ansible/issues/7235
+      # See: http://serverfault.com/questions/107187/ssh-agent-forwarding-and-sudo-to-another-user
+      acl: name={{ item }} etype=user entity={{ type_name }} permissions="rwx" state=present
+      with_items:
+        - "{{ ansible_env.SSH_AUTH_SOCK|dirname }}"
+        - "{{ ansible_env.SSH_AUTH_SOCK }}"
+    
     - name: Pull sources from the repository.
       git: repo="{{ type_repo }}"
            dest="{{ type_root }}"
