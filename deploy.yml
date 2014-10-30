@@ -12,7 +12,7 @@
   
     - name: Add authorized_key
       authorized_key: user="{{ type_name }}"
-                      key="{{ lookup('file', '/var/lib/awx/.ssh/.ssh/github.pub') }}"
+                      key="{{ lookup('file', '/var/lib/awx/.ssh/github.pub') }}"
                       path=/home/{{ type_name }}/.ssh/authorized_keys
                       state=present
                       manage_dir=no
