@@ -13,7 +13,7 @@
       file: state=directory path=/home/ubuntu/.ssh group=ubuntu owner=ubuntu
                       
     - name: Copy Github Deploy SSH key
-      copy: src=/var/lib/awx/.ssh/github dest=/home/ubuntu/.ssh/github mode=0600 group=ubuntu owner=ubuntu
+      copy: src=/var/lib/awx/.ssh/github.{{ type_name }} dest=/home/ubuntu/.ssh/github mode=0600 group=ubuntu owner=ubuntu
       
     - name: Copy Compose SSH key
       copy: src=/var/lib/awx/.ssh/compose dest=/home/ubuntu/.ssh/compose mode=0600 group=ubuntu owner=ubuntu
@@ -34,7 +34,7 @@
                       state=present
                       manage_dir=no
       with_items:
-        - "{{ lookup('file', '/var/lib/awx/.ssh/github.pub') }}"
+        - "{{ lookup('file', '/var/lib/awx/.ssh/github.{{ type_name }}.pub') }}"
         - "{{ lookup('file', '/var/lib/awx/.ssh/compose.pub') }}"
       
     - name: Create the server directory
