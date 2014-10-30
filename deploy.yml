@@ -3,6 +3,7 @@
   serial: 1
   max_fail_percentage: 49
   gather_facts: false
+  remote_user: "{{ type_name }}"
   
   tasks:
     - name: Pull sources from the repository.
