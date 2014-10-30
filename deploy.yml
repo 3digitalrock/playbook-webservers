@@ -10,7 +10,7 @@
            dest="{{ type_root }}"
            version="{{ branch }}"
            accept_hostkey=yes
-           ssh_opts="-o ForwardAgent=yes"
+           ssh_opts="-o ForwardAgent=yes -vvvv"
            key_file=/home/ubuntu/.ssh/github
       notify:
         - restart {{ type_name }} server
