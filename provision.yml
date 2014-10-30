@@ -9,16 +9,6 @@
     - name: Verify ubuntu user exists
       user: home=/home/ubuntu name=ubuntu state=present
       
-    - name: Create the server directory
-      file: group=ubuntu owner=ubuntu mode=755 state=directory path="{{ type_root }}"
-      
-    - name: Install system packages
-      apt: pkg={{ item }} state=installed update-cache=yes
-      with_items: system_packages
-      
-    - name: Create alternatives link for Node
-      alternatives: link=/usr/bin/node name=nodejs path=/usr/bin/nodejs
-      
     - name: Create the SSH directory.
       file: state=directory path=/home/ubuntu/.ssh group=ubuntu owner=ubuntu
                       
@@ -40,6 +30,19 @@
                       path=/home/ubuntu/.ssh/authorized_keys
                       state=present
                       manage_dir=no
+      
+    - name: Create the server directory
+      file: group=ubuntu owner=ubuntu mode=755 state=directory path="{{ type_root }}"
+      
+    - name: Install system packages
+      apt: pkg={{ item }} state=installed update-cache=yes
+      with_items: system_packages
+      
+    - name: Create alternatives link for Node
+      alternatives: link=/usr/bin/node name=nodejs path=/usr/bin/nodejs
+      
+    - name: Install supervisord
+      easy_install: name=supervisor
                       
     - name: Download Pagespeed Nginx module
       get_url: url=https://github.com/pagespeed/ngx_pagespeed/archive/release-{{ nps_version }}-beta.zip
