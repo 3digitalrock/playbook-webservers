@@ -11,11 +11,15 @@
            version="{{ branch }}"
            accept_hostkey=yes
            key_file=/home/ubuntu/.ssh/github
-      notify:
-        - restart web server
         
     - name: Create the server config directory
       file: group=ubuntu owner=ubuntu mode=755 state=directory path="{{ type_root }}/config"
         
     - name: Upload server configuration.
       copy: src=/var/lib/awx/configs/{{ type_name }}.env dest={{ type_root }}/config/.env group=ubuntu owner=ubuntu
+      
+    - name: Restart application server
+      service: name={{ type_name }} state=restarted
+
+  handlers:
+    - include: handlers.yml
