@@ -23,7 +23,7 @@
       file: state=directory path=/home/ubuntu/.ssh group=ubuntu owner=ubuntu
                       
     - name: Copy SSH key
-      copy: src=/var/lib/awx/.ssh/github dest=/home/ubuntu/.ssh/github mode=0600 group=ubuntu owner=ubuntu
+      copy: src=/var/lib/awx/.ssh/github.pem dest=/home/ubuntu/.ssh/github mode=0600 group=ubuntu owner=ubuntu
       
     - name: Copy SSH config file
       copy: src=/var/lib/awx/.ssh/config dest=/home/ubuntu/.ssh/config group=ubuntu owner=ubuntu
