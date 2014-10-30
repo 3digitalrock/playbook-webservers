@@ -15,5 +15,4 @@
         - restart {{ type_name }} server
         
     - name: Upload server configuration.
-      sudo: yes
       copy: src=/var/lib/awx/configs/{{ type_name }}.env dest={{ type_root }}/config/.env group=ubuntu owner=ubuntu
