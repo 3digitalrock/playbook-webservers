@@ -1,20 +1,11 @@
 ---
-- name: start nginx
-  service: name=nginx state=started
-  sudo_user: root
-
 - name: restart nginx
   service: name=nginx state=restarted
-  sudo_user: root
 
 - name: reload nginx
   service: name=nginx state=reloaded
-  sudo_user: root
 
 - name: restart {{ type_name }} server
   service: name={{ type_name }} state=restarted
-  sudo_user: root
 
-- name: start {{ type_name }} server
-  service: name={{ type_name }} state=started
-  sudo_user: root
+
