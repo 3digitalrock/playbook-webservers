@@ -5,16 +5,6 @@
   gather_facts: false
   
   tasks:
-    - name: Make sure the authorized_key file exists
-      file: path=/home/{{ type_name }}/.ssh/authorized_keys state=touch group="{{ type_name }}" owner="{{ type_name }}"
-  
-    - name: Add authorized_key
-      authorized_key: user="{{ type_name }}"
-                      key="{{ lookup('file', '/var/lib/awx/.ssh/github.pub') }}"
-                      path=/home/{{ type_name }}/.ssh/authorized_keys
-                      state=present
-                      manage_dir=no
-    
     - name: Pull sources from the repository.
       git: repo="{{ type_repo }}"
            dest="{{ type_root }}"
