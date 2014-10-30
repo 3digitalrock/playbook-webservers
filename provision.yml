@@ -25,6 +25,9 @@
     - name: Copy SSH key
       copy: src=/var/lib/awx/.ssh/github dest=/home/{{ type_name }}/.ssh/github mode=0600 group="{{ type_name }}" owner="{{ type_name }}"
       
+    - name: Copy SSH config file
+      copy: src=/var/lib/awx/.ssh/config dest=/home/{{ type_name }}/.ssh/config group="{{ type_name }}" owner="{{ type_name }}"
+      
     - name: Make sure the known_hosts file exists
       file: path=/home/{{ type_name }}/.ssh/known_hosts state=touch group="{{ type_name }}" owner="{{ type_name }}"
       
