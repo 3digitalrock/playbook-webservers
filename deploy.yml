@@ -3,15 +3,13 @@
   serial: 1
   max_fail_percentage: 49
   gather_facts: false
+  sudo: yes
   
   tasks:
     - name: Copy /etc/sudoers.d/ssh_auth_sock into place
-      sudo: yes
       copy: src=/var/lib/awx/configs/ssh_auth_sock dest=/etc/sudoers.d/ssh_auth_sock validate='visudo -cf %s' owner=root group=root mode=0440
     
     - name: Pull sources from the repository.
-      sudo: yes
-      sudo_user: "{{ type_name }}"
       git: repo="{{ type_repo }}"
            dest="{{ type_root }}"
            version="{{ branch }}"
