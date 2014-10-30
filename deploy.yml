@@ -12,7 +12,7 @@
            accept_hostkey=yes
            key_file=/home/ubuntu/.ssh/github
       notify:
-        - restart {{ type_name }} server
+        - restart web server
         
     - name: Upload server configuration.
       copy: src=/var/lib/awx/configs/{{ type_name }}.env dest={{ type_root }}/config/.env group=ubuntu owner=ubuntu
