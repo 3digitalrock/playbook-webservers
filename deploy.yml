@@ -9,7 +9,6 @@
       git: repo="{{ type_repo }}"
            dest="{{ type_root }}"
            version="{{ branch }}"
-           force=yes
            ssh_opts="-o ForwardAgent=yes"
            key_file=/home/ubuntu/.ssh/github
            update=no
