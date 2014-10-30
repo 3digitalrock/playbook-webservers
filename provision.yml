@@ -76,7 +76,7 @@
       copy: src=conf/nginx_service dest=/etc/init.d/nginx mode=0755
       
     - name: Start nginx
-      service: name=nginx state=started
+      service: name=nginx state=restarted
       
     - name: Copy web server startup script
       template: src=conf/{{ type_name }}_startup.conf.j2 dest=/etc/init/{{ type_name }}.conf mode=0644
