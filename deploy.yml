@@ -19,4 +19,5 @@
       copy: src=/var/lib/awx/configs/{{ type_name }}.env dest={{ type_root }}/config/.env group=ubuntu owner=ubuntu
       
     - name: Restart application server
+      sudo: yes
       supervisorctl: name={{ type_name }} state=restarted config=/etc/supervisor.conf
