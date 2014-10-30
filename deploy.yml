@@ -12,6 +12,7 @@
            version="{{ branch }}"
            key_file=/home/{{ type_name }}/.ssh/github
            force=yes
+           accept_host=yes
       notify:
         - restart {{ type_name }} server
         
