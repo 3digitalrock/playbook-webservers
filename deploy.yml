@@ -16,4 +16,4 @@
         
     - name: Upload server configuration.
       sudo: yes
-      copy: src=/var/lib/awx/configs/{{ type_name }}.env dest={{ type_root }}/config/.env
+      copy: src=/var/lib/awx/configs/{{ type_name }}.env dest={{ type_root }}/config/.env group=ubuntu owner=ubuntu
