@@ -2,8 +2,6 @@
 - hosts: tag_Type_sedimentary
   serial: 1
   max_fail_percentage: 49
-  sudo: true
-  sudo_user: "{{ type_name }}"
   gather_facts: false
   
   tasks:
