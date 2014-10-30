@@ -49,6 +49,9 @@
       
     - name: Copy supervisord init script
       copy: src=conf/supervisord dest=/etc/init.d/supervisord owner=root group=root mode=755
+      
+    - name: Create the supervisord log directory.
+      file: state=directory path=/var/log/supervisor group=root owner=root
                       
     - name: Download Pagespeed Nginx module
       get_url: url=https://github.com/pagespeed/ngx_pagespeed/archive/release-{{ nps_version }}-beta.zip
