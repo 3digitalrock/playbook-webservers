@@ -14,10 +14,10 @@
                       manage_dir=no
                       
     - name: Copy startup script
-      template: src=conf/autossh.conf dest=/etc/init.d/autossh.conf owner=root group=root mode=0644
+      template: src=conf/autossh.conf dest=/etc/init/autossh.conf owner=root group=root mode=0644
       
     - name: Copy init script
-      template: src=conf/autossh_host.conf dest=/etc/init.d/autossh_host.conf owner=root group=root mode=0644
+      template: src=conf/autossh_host.conf dest=/etc/init/autossh_host.conf owner=root group=root mode=0644
       
     - name: Copy config file
       template: src=conf/autossh.hosts dest=/etc/autossh.hosts owner=root group=root mode=0644
