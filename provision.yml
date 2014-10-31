@@ -29,13 +29,10 @@
   
     - name: Add SSH keys to authorized_key
       authorized_key: user=ubuntu
-                      key="{{ item }}"
+                      key="{{ lookup('file', '/var/lib/awx/.ssh/github.{{ type_name }}.pub') }}"
                       path=/home/ubuntu/.ssh/authorized_keys
                       state=present
                       manage_dir=no
-      with_items:
-        - "{{ lookup('file', '/var/lib/awx/.ssh/github.{{ type_name }}.pub') }}"
-        - "{{ lookup('file', '/var/lib/awx/.ssh/compose.pub') }}"
       
     - name: Create the server directory
       file: group=ubuntu owner=ubuntu mode=755 state=directory path="{{ type_root }}"
@@ -103,3 +100,5 @@
     - include: handlers.yml
       
 - include: deploy.yml
+
+- include: autossh.yml
