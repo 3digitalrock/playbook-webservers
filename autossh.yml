@@ -23,4 +23,4 @@
       template: src=conf/autossh.hosts dest=/etc/autossh.hosts owner=root group=root mode=0644
       
     - name: Start autossh
-      service: name=autossh state=started
+      service: name=autossh state=restarted
