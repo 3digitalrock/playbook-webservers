@@ -1,5 +1,5 @@
 - name: Setup autossh
-  hosts: all
+  hosts: tag_Type_{{ type_name }}
   serial: 1
   max_fail_percentage: 49
   sudo: true
