@@ -12,6 +12,9 @@
            accept_hostkey=yes
            key_file=/home/ubuntu/.ssh/github
         
+    - name: NPM install
+      npm: path="{{ type_root }}"
+        
     - name: Create the server config directory
       file: group=ubuntu owner=ubuntu mode=755 state=directory path="{{ type_root }}/config"
         
