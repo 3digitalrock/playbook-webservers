@@ -21,3 +21,6 @@
     - name: Restart application server
       sudo: yes
       supervisorctl: name={{ type_name }} state=restarted
+      
+    - name: Delete Nginx cache
+      file: path=/var/cache/nginx state=absent
