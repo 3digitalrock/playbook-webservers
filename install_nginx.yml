@@ -1,4 +1,4 @@
-- name: Provisioning a "{{ type_name }}" server
+- name: Update Nginx for {{ type_name }} servers
   hosts: tag_Type_{{ type_name }}
   serial: 1
   max_fail_percentage: 49
@@ -40,4 +40,4 @@
       copy: src=conf/nginx_service dest=/etc/init.d/nginx mode=0755
       
     - name: Start nginx and add to boot
-      service: name=nginx state=started enabled=yes
+      service: name=nginx state=restarted enabled=yes
