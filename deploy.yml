@@ -28,3 +28,6 @@
     - name: Delete Nginx cache
       sudo: yes
       file: path=/var/cache/nginx state=absent
+      
+    - name: Recreate Nginx cache
+      file: group=www-data owner=www-data mode=755 state=directory path=/var/cache/nginx
