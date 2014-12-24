@@ -1,1 +1,1 @@
--N compose@portal.1.dblayer.com -p 10037 -L 127.0.0.2:28015:10.2.208.2:28015 -L 127.0.0.3:28015:10.2.208.3:28015 -i /home/ubuntu/.ssh/compose -o StrictHostKeyChecking=no
+-N compose@aws-us-east-1-portal.1.dblayer.com -p 10037 -L 127.0.0.2:28015:10.2.208.2:28015 -L 127.0.0.3:28015:10.2.208.3:28015 -i /home/ubuntu/.ssh/compose -o StrictHostKeyChecking=no
