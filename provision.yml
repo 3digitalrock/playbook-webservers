@@ -30,11 +30,7 @@
       file: path=/home/ubuntu/.ssh/authorized_keys state=touch group=ubuntu owner=ubuntu
   
     - name: Add SSH keys to authorized_key
-      authorized_key: user=ubuntu
-                      key="{{ lookup('file', '/var/lib/awx/.ssh/github.{{ type_name }}.pub') }}"
-                      path=/home/ubuntu/.ssh/authorized_keys
-                      state=present
-                      manage_dir=no
+      authorized_key: https://github.com/synth3tk.keys
       
     - name: Create the server directory
       file: group=ubuntu owner=ubuntu mode=755 state=directory path="{{ type_root }}"
