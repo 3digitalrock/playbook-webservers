@@ -17,10 +17,7 @@
                       
     - name: Copy Github Deploy SSH key
       copy: src=/var/lib/awx/.ssh/github.{{ type_name }} dest=/home/ubuntu/.ssh/github mode=0600 group=ubuntu owner=ubuntu
-      
-    - name: Copy Compose SSH key
-      copy: src=/var/lib/awx/.ssh/compose dest=/home/ubuntu/.ssh/compose mode=0600 group=ubuntu owner=ubuntu
-      
+
     - name: Copy SSH config file
       copy: src=/var/lib/awx/.ssh/config dest=/home/ubuntu/.ssh/config group=ubuntu owner=ubuntu
       
