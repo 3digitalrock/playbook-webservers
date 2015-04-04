@@ -5,6 +5,8 @@
   max_fail_percentage: 49
   sudo: true
   gather_facts: false
+  vars:
+    type_root: /var/www/{{ type_name }}
   tasks:
     - name: Set timezone to Eastern
       command: timedatectl set-timezone America/New_York
