@@ -7,7 +7,16 @@
   gather_facts: false
   vars:
     type_root: /var/www/{{ type_name }}
-    system_packages: git nodejs npm python-setuptools build-essential zlib1g-dev libpcre3 libpcre3-dev unzip
+    system_packages:
+      - git
+      - nodejs
+      - npm
+      - python-setuptools
+      - build-essential
+      - zlib1g-dev
+      - libpcre3
+      - libpcre3-dev
+      - unzip
   tasks:
     - name: Set timezone to Eastern
       command: timedatectl set-timezone America/New_York
