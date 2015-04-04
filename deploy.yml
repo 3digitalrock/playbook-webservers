@@ -3,8 +3,6 @@
   serial: 1
   max_fail_percentage: 49
   gather_facts: false
-  vars:
-    type_repo: git@github.com:3digitalrock/{{ type_name }}.git
   
   tasks:
     - name: Pull sources from the repository.
