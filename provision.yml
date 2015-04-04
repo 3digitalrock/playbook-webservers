@@ -100,5 +100,3 @@
     - include: handlers.yml
       
 - include: deploy.yml
-
-- include: autossh.yml
