@@ -7,6 +7,4 @@
   apt: pkg={{ item }} state=installed update-cache=yes
   with_items: nodejs_packages
 
-- name: Install supervisord
-  sudo: true
-  easy_install: name=supervisor
+- include: supervisord.yml
