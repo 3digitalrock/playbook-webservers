@@ -1,3 +1,7 @@
+- name: Install supervisord
+  sudo: true
+  easy_install: name=supervisor
+
 - name: Copy supervisord init script
   sudo: true
   copy: src=supervisord dest=/etc/init.d/supervisord owner=root group=root mode=755
