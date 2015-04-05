@@ -10,6 +10,10 @@
   sudo: true
   file: state=directory path=/var/log/supervisor group=root owner=root
   
+- name: Remove supervisor socket
+  sudo: true
+  command: unlink /tmp/supervisor.sock
+  
 - name: Start supervisord and add to boot
   sudo: true
   service: name=supervisord state=started enabled=yes
