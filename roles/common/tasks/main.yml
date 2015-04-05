@@ -8,7 +8,7 @@
       file: state=directory path=/home/ubuntu/.ssh group=ubuntu owner=ubuntu
                       
     - name: Copy Github Deploy SSH key
-      copy: src=/var/lib/awx/.ssh/github.{{ type_name }} dest=/home/ubuntu/.ssh/github mode=0600 group=ubuntu owner=ubuntu
+      copy: src=/var/lib/awx/.ssh/github.{{ ec2_tag_Type }} dest=/home/ubuntu/.ssh/github mode=0600 group=ubuntu owner=ubuntu
 
     - name: Copy SSH config file
       copy: src=/var/lib/awx/.ssh/config dest=/home/ubuntu/.ssh/config group=ubuntu owner=ubuntu
