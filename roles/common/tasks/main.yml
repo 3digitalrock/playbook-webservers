@@ -17,7 +17,7 @@
     - name: Make sure the known_hosts file exists
       file: path=/home/ubuntu/.ssh/known_hosts state=touch group=ubuntu owner=ubuntu
       
-    - name: Make sure the authorized_key file exists
+    - name: Make sure the authorized_keys file exists
       file: path=/home/ubuntu/.ssh/authorized_keys state=touch group=ubuntu owner=ubuntu
   
     - name: Add SSH keys to authorized_key
