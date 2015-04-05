@@ -39,4 +39,5 @@
   copy: src=nginx_service dest=/etc/init.d/nginx mode=0755
   
 - name: Start nginx and add to boot
+  sudo: true
   service: name=nginx state=restarted enabled=yes
