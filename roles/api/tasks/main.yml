@@ -1,0 +1,29 @@
+---
+- name: Pull sources from the repository.
+  sudo_user: ubuntu
+  git: repo=/var/www/igneous
+       dest=/var/www/igneous
+       version="{{ branch }}"
+       accept_hostkey=yes
+       key_file=/home/ubuntu/.ssh/github
+       force=yes
+    
+- name: NPM install
+  sudo_user: ubuntu
+  npm: path=/var/www/igneous
+    
+- name: Create the server config directory
+  sudo_user: ubuntu
+  file: group=ubuntu owner=ubuntu mode=755 state=directory path=/var/www/igneous/config
+    
+- name: Upload server configuration.
+  copy: src=/var/lib/awx/configs/igneous.env dest=/var/www/igneous/config/.env group=ubuntu owner=ubuntu
+  
+- name: Restart application server
+  supervisorctl: name=igneous state=restarted
+  
+- name: Delete Nginx cache
+  file: path=/var/cache/nginx state=absent
+  
+- name: Recreate Nginx cache
+  file: group=www-data owner=www-data mode=755 state=directory path=/var/cache/nginx
