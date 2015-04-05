@@ -1,13 +1,15 @@
 - name: Download Pagespeed Nginx module
   get_url: url=https://github.com/pagespeed/ngx_pagespeed/archive/release-{{ nps_version }}-beta.zip
            dest=/home/ubuntu/release-{{ nps_version }}-beta.zip
+           force: yes
   
 - name: Unzip Pagespeed Nginx module
-  command: unzip -q /home/ubuntu/release-{{ nps_version }}-beta.zip -d /home/ubuntu
+  command: unzip -qo /home/ubuntu/release-{{ nps_version }}-beta.zip -d /home/ubuntu
   
 - name: Download Pagespeed psol
   get_url: url=https://dl.google.com/dl/page-speed/psol/{{ nps_version }}.tar.gz
            dest=/home/ubuntu/ngx_pagespeed-release-{{ nps_version }}-beta/{{ nps_version }}.tar.gz
+           force: yes
            
 - name: Ungzip Pagespeed psol
   command: tar -xzf /home/ubuntu/ngx_pagespeed-release-{{ nps_version }}-beta/{{ nps_version }}.tar.gz -C /home/ubuntu/ngx_pagespeed-release-{{ nps_version }}-beta/
@@ -15,6 +17,7 @@
 - name: Download Nginx
   get_url: url=http://nginx.org/download/nginx-{{ nginx_version }}.tar.gz
            dest=/home/ubuntu/nginx-{{ nginx_version }}.tar.gz
+           force: yes
            
 - name: Ungzip Nginx
   command: tar -xzf /home/ubuntu/nginx-{{ nginx_version }}.tar.gz -C /home/ubuntu
