@@ -7,11 +7,12 @@
   roles:
   - common
 
-# Configure and deploy the API/DB server(s)
+# Configure and deploy the API server(s)
 - hosts: tag_test_true
   user: ubuntu
   roles:
   - nginx
+  - nodejs
   - api
 
 # Configure and deploy the web server(s)
@@ -19,4 +20,5 @@
   user: ubuntu
   roles:
   - nginx
+  - nodejs
   - web
