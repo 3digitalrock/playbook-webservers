@@ -6,10 +6,6 @@
   sudo: true
   apt: pkg={{ item }} state=installed update-cache=yes
   with_items: nodejs_packages
-  
-- name: Create alternatives link for Node
-  sudo: true
-  alternatives: link=/usr/bin/node name=nodejs path=/usr/bin/nodejs
 
 - name: Install supervisord
   sudo: true
