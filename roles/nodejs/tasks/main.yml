@@ -1,5 +1,5 @@
 - name: Create the server directory
-  file: group=ubuntu owner=ubuntu mode=755 state=directory path="{{ type_root }}"
+  file: group=ubuntu owner=ubuntu mode=755 state=directory path=/var/www/{{ ec2_tag_Type }}
   
 - name: Install nodejs packages
   sudo: true
