@@ -1,4 +1,8 @@
 ---
+- name: Install git
+  sudo: true
+  apt: pkg=git state=installed update-cache=yes
+
 - name: Pull sources from the repository.
   git: repo=/var/www/igneous
        dest=/var/www/igneous
