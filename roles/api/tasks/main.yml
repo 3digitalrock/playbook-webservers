@@ -25,6 +25,7 @@
   copy: src=supervisord.conf dest=/etc/supervisord.conf owner=root group=root mode=0644
   
 - name: Remove supervisor socket
+  sudo: true
   command: unlink /tmp/supervisor.sock
   
 - name: Restart supervisord
