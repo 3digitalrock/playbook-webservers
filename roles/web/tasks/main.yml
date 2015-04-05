@@ -1,0 +1,29 @@
+---
+- name: Pull sources from the repository.
+  sudo_user: ubuntu
+  git: repo=/var/www/sedimentary
+       dest=/var/www/sedimentary
+       version="{{ branch }}"
+       accept_hostkey=yes
+       key_file=/home/ubuntu/.ssh/github
+       force=yes
+    
+- name: NPM install
+  sudo_user: ubuntu
+  npm: path=/var/www/sedimentary
+    
+- name: Create the server config directory
+  sudo_user: ubuntu
+  file: group=ubuntu owner=ubuntu mode=755 state=directory path=/var/www/sedimentary/config
+    
+- name: Upload server configuration.
+  copy: src=/var/lib/awx/configs/sedimentary.env dest=/var/www/sedimentary/config/.env group=ubuntu owner=ubuntu
+  
+- name: Restart application server
+  supervisorctl: name=sedimentary state=restarted
+  
+- name: Delete Nginx cache
+  file: path=/var/cache/nginx state=absent
+  
+- name: Recreate Nginx cache
+  file: group=www-data owner=www-data mode=755 state=directory path=/var/cache/nginx
