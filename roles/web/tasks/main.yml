@@ -1,4 +1,8 @@
 ---
+- name: Install git
+  sudo: true
+  apt: pkg=git state=installed update-cache=yes
+
 - name: Pull sources from the repository.
   sudo_user: ubuntu
   git: repo=/var/www/sedimentary
