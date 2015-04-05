@@ -3,20 +3,20 @@
 
 # Apply common configuration to all hosts
 - hosts: tag_test_true
-  user: root
+  user: ubuntu
   roles:
   - common
 
 # Configure and deploy the API/DB server(s)
 - hosts: tag_test_true
-  user: root
+  user: ubuntu
   roles:
   - nginx
   - api
 
 # Configure and deploy the web server(s)
 - hosts: tag_Type_sedimentary2
-  user: root
+  user: ubuntu
   roles:
   - nginx
   - web
