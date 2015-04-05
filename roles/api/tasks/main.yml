@@ -22,7 +22,7 @@
   
 - name: Copy supervisord conf
   sudo: true
-  template: src=supervisord.conf.j2 dest=/etc/supervisord.conf owner=root group=root mode=0644
+  copy: src=supervisord.conf dest=/etc/supervisord.conf owner=root group=root mode=0644
   
 - name: Copy supervisord init script
   sudo: true
