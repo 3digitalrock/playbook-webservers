@@ -17,11 +17,11 @@ supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
 [supervisorctl]
 serverurl=unix:///tmp/supervisor.sock ; use a unix:// URL  for a unix socket
 
-[program:{{ type_name }}]
-command = node /var/www/{{ type_name }}/server.js
-directory = /var/www/{{ type_name }}
+[program:sedimentary]
+command = node /var/www/sedimentary/server.js
+directory = /var/www/sedimentary
 user = ubuntu
 autostart = true
 autorestart = true
-stdout_logfile = /var/log/supervisor/{{ type_name }}.log
-stderr_logfile = /var/log/supervisor/{{ type_name }}_error.log
+stdout_logfile = /var/log/supervisor/sedimentary.log
+stderr_logfile = /var/log/supervisor/sedimentary_error.log
