@@ -22,5 +22,6 @@
     - name: Add SSH keys to authorized_key
       authorized_key: user=ubuntu key=https://github.com/synth3tk.keys
       
-    - name: Create the server directory
-      file: group=ubuntu owner=ubuntu mode=755 state=directory path="{{ type_root }}"
+    - name: Install system packages
+      apt: pkg={{ item }} state=installed update-cache=yes
+      with_items: system_packages
