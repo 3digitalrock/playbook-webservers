@@ -8,4 +8,4 @@
   
 - name: Start supervisord and add to boot
   sudo: true
-  service: name=supervisord state=restarted enabled=yes
+  service: name=supervisord state=started enabled=yes
