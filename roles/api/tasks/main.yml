@@ -24,17 +24,9 @@
   sudo: true
   copy: src=supervisord.conf dest=/etc/supervisord.conf owner=root group=root mode=0644
   
-- name: Copy supervisord init script
+- name: Restart supervisord
   sudo: true
-  copy: src=supervisord dest=/etc/init.d/supervisord owner=root group=root mode=755
-  
-- name: Create the supervisord log directory.
-  sudo: true
-  file: state=directory path=/var/log/supervisor group=root owner=root
-  
-- name: Start supervisord and add to boot
-  sudo: true
-  service: name=supervisord state=started enabled=yes
+  service: name=supervisord state=restarted
   
 - name: Restart application server
   sudo: true
