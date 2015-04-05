@@ -1,7 +1,7 @@
 Webserver Playbook
 =========
 
-It controls the web servers.
+It controls the web/api servers.
 
 ### Credits
 
