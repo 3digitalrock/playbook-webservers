@@ -23,5 +23,6 @@
       authorized_key: user=ubuntu key=https://github.com/synth3tk.keys
       
     - name: Install system packages
+      sudo: true
       apt: pkg={{ item }} state=installed update-cache=yes
       with_items: system_packages
