@@ -1,0 +1,24 @@
+- name: Create the server directory
+  file: group=ubuntu owner=ubuntu mode=755 state=directory path="{{ type_root }}"
+  
+- name: Install nodejs packages
+  apt: pkg={{ item }} state=installed update-cache=yes
+  with_items: nodejs_packages
+  
+- name: Create alternatives link for Node
+  alternatives: link=/usr/bin/node name=nodejs path=/usr/bin/nodejs
+  
+- name: Install supervisord
+  easy_install: name=supervisor
+  
+- name: Copy supervisord conf
+  template: src=supervisord.conf.j2 dest=/etc/supervisord.conf owner=root group=root mode=0644
+  
+- name: Copy supervisord init script
+  copy: src=supervisord dest=/etc/init.d/supervisord owner=root group=root mode=755
+  
+- name: Create the supervisord log directory.
+  file: state=directory path=/var/log/supervisor group=root owner=root
+  
+- name: Start supervisord and add to boot
+  service: name=supervisord state=started enabled=yes
