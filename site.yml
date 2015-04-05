@@ -8,14 +8,14 @@
   - common
 
 # Configure and deploy the API/DB server(s)
-- hosts: tag_Type_igneous
+- hosts: tag_test_true
   user: root
   roles:
   - nginx
   - api
 
 # Configure and deploy the web server(s)
-- hosts: tag_Type_sedimentary
+- hosts: tag_Type_sedimentary2
   user: root
   roles:
   - nginx
