@@ -27,7 +27,7 @@
     - make install
 
 - name: Copy nginx configuration file.
-  copy: src="{{ ec2_tag_Type }}".conf dest=/etc/nginx/nginx.conf
+  copy: src={{ ec2_tag_Type }}.conf dest=/etc/nginx/nginx.conf
   
 - name: Create Nginx service
   copy: src=conf/nginx_service dest=/etc/init.d/nginx mode=0755
