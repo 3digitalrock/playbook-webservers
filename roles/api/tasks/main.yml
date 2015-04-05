@@ -4,7 +4,7 @@
   apt: pkg=git state=installed update-cache=yes
 
 - name: Pull sources from the repository.
-  git: repo=/var/www/igneous
+  git: repo=ssh://git@github.com:3digitalrock/igneous.git
        dest=/var/www/igneous
        version="{{ branch }}"
        accept_hostkey=yes
