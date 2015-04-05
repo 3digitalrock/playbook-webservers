@@ -1,28 +1,39 @@
+- name: Check for existing Pagespeed/Nginx downloads
+  stat: path=/home/ubuntu/nginx-{{ nginx_version }}
+  register: psng
+
 - name: Download Pagespeed Nginx module
+  when: psng.stat.exists == false
   get_url: url=https://github.com/pagespeed/ngx_pagespeed/archive/release-{{ nps_version }}-beta.zip
            dest=/home/ubuntu/release-{{ nps_version }}-beta.zip
            force=yes
   
 - name: Unzip Pagespeed Nginx module
+  when: psng.stat.exists == false
   command: unzip -qo /home/ubuntu/release-{{ nps_version }}-beta.zip -d /home/ubuntu
   
 - name: Download Pagespeed psol
+  when: psng.stat.exists == false
   get_url: url=https://dl.google.com/dl/page-speed/psol/{{ nps_version }}.tar.gz
            dest=/home/ubuntu/ngx_pagespeed-release-{{ nps_version }}-beta/{{ nps_version }}.tar.gz
            force=yes
            
 - name: Ungzip Pagespeed psol
+  when: psng.stat.exists == false
   command: tar -xzf /home/ubuntu/ngx_pagespeed-release-{{ nps_version }}-beta/{{ nps_version }}.tar.gz -C /home/ubuntu/ngx_pagespeed-release-{{ nps_version }}-beta/
 
 - name: Download Nginx
+  when: psng.stat.exists == false
   get_url: url=http://nginx.org/download/nginx-{{ nginx_version }}.tar.gz
            dest=/home/ubuntu/nginx-{{ nginx_version }}.tar.gz
            force=yes
            
 - name: Ungzip Nginx
+  when: psng.stat.exists == false
   command: tar -xzf /home/ubuntu/nginx-{{ nginx_version }}.tar.gz -C /home/ubuntu
   
 - name: Build Nginx with Pagespeed
+  when: psng.stat.exists == false
   sudo: true
   shell: 'cd /home/ubuntu/nginx-{{ nginx_version }};{{ item }}'
   with_items:
@@ -31,13 +42,16 @@
     - make install
 
 - name: Copy nginx configuration file.
+  when: psng.stat.exists == false
   sudo: true
   copy: src={{ ec2_tag_Type }}.conf dest=/etc/nginx/nginx.conf
   
 - name: Create Nginx service
+  when: psng.stat.exists == false
   sudo: true
   copy: src=nginx_service dest=/etc/init.d/nginx mode=0755
   
 - name: Start nginx and add to boot
+  when: psng.stat.exists == false
   sudo: true
   service: name=nginx state=restarted enabled=yes
