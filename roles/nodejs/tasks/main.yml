@@ -7,3 +7,6 @@
   
 - name: Create alternatives link for Node
   alternatives: link=/usr/bin/node name=nodejs path=/usr/bin/nodejs
+
+- name: Install supervisord
+  easy_install: name=supervisor
