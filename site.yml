@@ -1,0 +1,24 @@
+---
+# This playbook deploys the whole application stack in this site.
+
+# Apply common configuration to all hosts
+- hosts: all
+  user: root
+  roles:
+  - common
+
+# Configure and deploy the API/DB server(s)
+- hosts: tag_Type_igneous
+  user: root
+  roles:
+  - nginx
+  - api
+  - db
+
+# Configure and deploy the web server(s)
+- hosts: tag_Type_sedimentary
+  user: root
+  roles:
+  - nginx
+  - web
+  - redis
