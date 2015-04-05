@@ -30,7 +30,7 @@
   copy: src={{ ec2_tag_Type }}.conf dest=/etc/nginx/nginx.conf
   
 - name: Create Nginx service
-  copy: src=conf/nginx_service dest=/etc/init.d/nginx mode=0755
+  copy: src=nginx_service dest=/etc/init.d/nginx mode=0755
   
 - name: Start nginx and add to boot
   service: name=nginx state=restarted enabled=yes
