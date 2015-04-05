@@ -20,6 +20,7 @@
   command: tar -xzf /home/ubuntu/nginx-{{ nginx_version }}.tar.gz -C /home/ubuntu
   
 - name: Build Nginx with Pagespeed
+  sudo: true
   shell: 'cd /home/ubuntu/nginx-{{ nginx_version }};{{ item }}'
   with_items:
     - ./configure --add-module=/home/ubuntu/ngx_pagespeed-release-{{ nps_version }}-beta --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf --with-ipv6 --with-http_stub_status_module
@@ -27,9 +28,11 @@
     - make install
 
 - name: Copy nginx configuration file.
+  sudo: true
   copy: src={{ ec2_tag_Type }}.conf dest=/etc/nginx/nginx.conf
   
 - name: Create Nginx service
+  sudo: true
   copy: src=nginx_service dest=/etc/init.d/nginx mode=0755
   
 - name: Start nginx and add to boot
