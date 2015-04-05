@@ -1,6 +1,5 @@
 ---
 - name: Pull sources from the repository.
-  sudo_user: ubuntu
   git: repo=/var/www/igneous
        dest=/var/www/igneous
        version="{{ branch }}"
@@ -9,33 +8,38 @@
        force=yes
     
 - name: NPM install
-  sudo_user: ubuntu
   npm: path=/var/www/igneous
     
 - name: Create the server config directory
-  sudo_user: ubuntu
   file: group=ubuntu owner=ubuntu mode=755 state=directory path=/var/www/igneous/config
     
 - name: Upload server configuration
   copy: src=/var/lib/awx/configs/igneous.env dest=/var/www/igneous/config/.env group=ubuntu owner=ubuntu
   
 - name: Copy supervisord conf
+  sudo: true
   template: src=supervisord.conf.j2 dest=/etc/supervisord.conf owner=root group=root mode=0644
   
 - name: Copy supervisord init script
+  sudo: true
   copy: src=supervisord dest=/etc/init.d/supervisord owner=root group=root mode=755
   
 - name: Create the supervisord log directory.
+  sudo: true
   file: state=directory path=/var/log/supervisor group=root owner=root
   
 - name: Start supervisord and add to boot
+  sudo: true
   service: name=supervisord state=started enabled=yes
   
 - name: Restart application server
+  sudo: true
   supervisorctl: name=igneous state=restarted
   
 - name: Delete Nginx cache
+  sudo: true
   file: path=/var/cache/nginx state=absent
   
 - name: Recreate Nginx cache
+  sudo: true
   file: group=www-data owner=www-data mode=755 state=directory path=/var/cache/nginx
