@@ -13,7 +13,6 @@
   roles:
   - nginx
   - api
-  - db
 
 # Configure and deploy the web server(s)
 - hosts: tag_Type_sedimentary
