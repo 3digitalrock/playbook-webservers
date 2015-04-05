@@ -19,6 +19,18 @@
 - name: Upload server configuration.
   copy: src=/var/lib/awx/configs/sedimentary.env dest=/var/www/sedimentary/config/.env group=ubuntu owner=ubuntu
   
+- name: Copy supervisord conf
+  template: src=supervisord.conf.j2 dest=/etc/supervisord.conf owner=root group=root mode=0644
+  
+- name: Copy supervisord init script
+  copy: src=supervisord dest=/etc/init.d/supervisord owner=root group=root mode=755
+  
+- name: Create the supervisord log directory.
+  file: state=directory path=/var/log/supervisor group=root owner=root
+  
+- name: Start supervisord and add to boot
+  service: name=supervisord state=started enabled=yes
+  
 - name: Restart application server
   supervisorctl: name=sedimentary state=restarted
   
