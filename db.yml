@@ -1,7 +1,7 @@
 ---
 # This playbook configures and deploys the db server(s)
 
-- hosts: tag_testdb_true
+- hosts: tag_metamorphic
   user: ubuntu
   roles:
   - db
