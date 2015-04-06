@@ -23,24 +23,12 @@
 - name: Copy supervisord conf
   sudo: true
   copy: src=supervisord.conf dest=/etc/supervisord.conf owner=root group=root mode=0644
+  notify:
+  - restart supervisord
   
-- name: Check for supervisor socket
+- name: Start igneous
   sudo: true
-  stat: path=/tmp/supervisor.sock
-  register: supersocket
-  
-- name: Remove supervisor socket
-  sudo: true
-  command: unlink /tmp/supervisor.sock
-  when: supersocket.stat.exists == true
-  
-- name: Restart supervisord
-  sudo: true
-  service: name=supervisord state=restarted enabled=yes
-  
-- name: Restart application server
-  sudo: true
-  supervisorctl: name=igneous state=restarted
+  supervisorctl: name=igneous state=started
   
 - name: Delete Nginx cache
   sudo: true
