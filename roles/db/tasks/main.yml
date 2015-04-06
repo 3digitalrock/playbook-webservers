@@ -1,16 +1,16 @@
-- name Add RethinkDB repo
+- name: Add RethinkDB repo
   sudo: true
   command: source /etc/lsb-release && echo "deb http://download.rethinkdb.com/apt $DISTRIB_CODENAME main" | sudo tee /etc/apt/sources.list.d/rethinkdb.list
   
-- name Get and add repo key
+- name: Get and add repo key
   sudo: true
   command: wget -qO- http://download.rethinkdb.com/apt/pubkey.gpg | sudo apt-key add -
   
-- name Install RethinkDB
+- name: Install RethinkDB
   sudo: true
   apt: pkg=rethinkdb state=installed update-cache=yes
   
-- name Copy configuration file
+- name: Copy configuration file
   sudo: true
   template: src=default.conf.j2 dest=/etc/rethinkdb/instances.d/instance1.conf
   notify:
