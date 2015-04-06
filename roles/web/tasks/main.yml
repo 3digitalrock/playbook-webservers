@@ -19,26 +19,18 @@
     
 - name: Upload server configuration
   copy: src=/var/lib/awx/configs/sedimentary.env dest=/var/www/sedimentary/config/.env group=ubuntu owner=ubuntu
-  
+
 - name: Copy supervisord conf
   sudo: true
   copy: src=supervisord.conf dest=/etc/supervisord.conf owner=root group=root mode=0644
+  notify:
+  - restart supervisord
   
-- name: Check for supervisor socket
+- name: Make sure sedimentary has started
   sudo: true
-  stat: path=/tmp/supervisor.sock
-  register: supersocket
+  supervisorctl: name=sedimentary state=started
   
-- name: Remove supervisor socket
-  sudo: true
-  command: unlink /tmp/supervisor.sock
-  when: supersocket.stat.exists == true
-  
-- name: Restart supervisord
-  sudo: true
-  service: name=supervisord state=restarted enabled=yes
-  
-- name: Restart application server
+- name: Reload sedimentary
   sudo: true
   supervisorctl: name=sedimentary state=restarted
   
