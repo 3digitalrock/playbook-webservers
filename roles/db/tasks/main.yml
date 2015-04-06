@@ -14,4 +14,4 @@
   sudo: true
   template: src=instance1.conf.j2 dest=/etc/rethinkdb/instances.d/instance1.conf
   notify:
-  - start rethinkdb
+  - restart rethinkdb
