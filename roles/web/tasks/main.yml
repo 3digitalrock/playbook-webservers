@@ -4,7 +4,6 @@
   apt: pkg=git state=installed update-cache=yes
 
 - name: Pull sources from the repository.
-  sudo_user: ubuntu
   git: repo=ssh://git@github.com/3digitalrock/sedimentary.git
        dest=/var/www/sedimentary
        version="{{ branch }}"
