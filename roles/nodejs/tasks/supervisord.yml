@@ -10,9 +10,15 @@
   sudo: true
   file: state=directory path=/var/log/supervisor group=root owner=root
   
+- name: Check for supervisor socket
+  sudo: true
+  stat: path=/tmp/supervisor.sock
+  register: supersocket
+  
 - name: Remove supervisor socket
   sudo: true
   command: unlink /tmp/supervisor.sock
+  when: supersocket.stat.exists == true
   
 - name: Start supervisord and add to boot
   sudo: true
