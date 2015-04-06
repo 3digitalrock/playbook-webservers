@@ -13,7 +13,7 @@
     - name: Register instance(s) with ELB
       local_action:
         module: ec2_elb
-        instance_id: "{{ ansible_ec2_instance_id }}"
+        instance_id: "{{ ec2_id }}"
         ec2_elbs: Igneous-VPC
         state: 'present'
 
@@ -29,6 +29,6 @@
     - name: Register instance(s) with ELB
       local_action:
         module: ec2_elb
-        instance_id: "{{ ansible_ec2_instance_id }}"
+        instance_id: "{{ ec2_id }}"
         ec2_elbs: Sedimentary-VPC
         state: 'present'
