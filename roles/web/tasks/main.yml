@@ -43,7 +43,9 @@
   supervisorctl: name=sedimentary state=restarted
   
 - name: Delete Nginx cache
+  sudo: true
   file: path=/var/cache/nginx state=absent
   
 - name: Recreate Nginx cache
+  sudo: true
   file: group=www-data owner=www-data mode=755 state=directory path=/var/cache/nginx
