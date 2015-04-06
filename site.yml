@@ -1,24 +1,20 @@
 ---
 # This playbook deploys the whole application stack in this site.
 
-# Apply common configuration to all hosts
-- hosts: tag_test_true
+# Configure and deploy the API server(s)
+- hosts: tag_type_igneous
   user: ubuntu
   roles:
   - common
-
-# Configure and deploy the API server(s)
-- hosts: tag_testapi_true
-  user: ubuntu
-  roles:
   - nginx
   - nodejs
   - api
 
 # Configure and deploy the web server(s)
-- hosts: tag_testweb
+- hosts: tag_type_sedimentary
   user: ubuntu
   roles:
+  - common
   - nginx
   - nodejs
   - web
