@@ -44,7 +44,7 @@
 - name: Copy nginx configuration file.
   when: psng.stat.exists == false
   sudo: true
-  copy: src={{ ec2_tag_Type }}.conf dest=/etc/nginx/nginx.conf
+  copy: src={{ ec2_tag_type }}.conf dest=/etc/nginx/nginx.conf
   
 - name: Create Nginx service
   when: psng.stat.exists == false
