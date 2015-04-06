@@ -5,7 +5,7 @@
 
 - name: Pull sources from the repository.
   sudo_user: ubuntu
-  git: repo=/var/www/sedimentary
+  git: repo=ssh://git@github.com/3digitalrock/sedimentary.git
        dest=/var/www/sedimentary
        version="{{ branch }}"
        accept_hostkey=yes
@@ -13,29 +13,34 @@
        force=yes
     
 - name: NPM install
-  sudo_user: ubuntu
   npm: path=/var/www/sedimentary
     
 - name: Create the server config directory
-  sudo_user: ubuntu
   file: group=ubuntu owner=ubuntu mode=755 state=directory path=/var/www/sedimentary/config
     
-- name: Upload server configuration.
+- name: Upload server configuration
   copy: src=/var/lib/awx/configs/sedimentary.env dest=/var/www/sedimentary/config/.env group=ubuntu owner=ubuntu
   
 - name: Copy supervisord conf
-  template: src=supervisord.conf.j2 dest=/etc/supervisord.conf owner=root group=root mode=0644
+  sudo: true
+  copy: src=supervisord.conf dest=/etc/supervisord.conf owner=root group=root mode=0644
   
-- name: Copy supervisord init script
-  copy: src=supervisord dest=/etc/init.d/supervisord owner=root group=root mode=755
+- name: Check for supervisor socket
+  sudo: true
+  stat: path=/tmp/supervisor.sock
+  register: supersocket
   
-- name: Create the supervisord log directory.
-  file: state=directory path=/var/log/supervisor group=root owner=root
+- name: Remove supervisor socket
+  sudo: true
+  command: unlink /tmp/supervisor.sock
+  when: supersocket.stat.exists == true
   
-- name: Start supervisord and add to boot
-  service: name=supervisord state=started enabled=yes
+- name: Restart supervisord
+  sudo: true
+  service: name=supervisord state=restarted enabled=yes
   
 - name: Restart application server
+  sudo: true
   supervisorctl: name=sedimentary state=restarted
   
 - name: Delete Nginx cache
