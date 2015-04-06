@@ -5,3 +5,10 @@
   user: ubuntu
   roles:
   - db
+  post_tasks:
+    - name: Register instance(s) with ELB
+      local_action:
+        module: ec2_elb
+        instance_id: "{{ ansible_ec2_instance_id }}"
+        ec2_elbs: Metamorphic
+        state: 'present'
