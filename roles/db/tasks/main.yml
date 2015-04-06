@@ -12,6 +12,6 @@
   
 - name: Copy configuration file
   sudo: true
-  template: src=default.conf.j2 dest=/etc/rethinkdb/instances.d/instance1.conf
+  template: src=instance1.conf.j2 dest=/etc/rethinkdb/instances.d/instance1.conf
   notify:
   - restart rethinkdb
