@@ -24,9 +24,15 @@
   sudo: true
   copy: src=supervisord.conf dest=/etc/supervisord.conf owner=root group=root mode=0644
   
+- name: Check for supervisor socket
+  sudo: true
+  stat: path=/tmp/supervisor.sock
+  register: supersocket
+  
 - name: Remove supervisor socket
   sudo: true
   command: unlink /tmp/supervisor.sock
+  when: supersocket.stat.exists == true
   
 - name: Restart supervisord
   sudo: true
