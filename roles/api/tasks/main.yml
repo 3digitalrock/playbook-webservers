@@ -32,7 +32,7 @@
   
 - name: Reload igneous
   sudo: true
-  supervisorctl: name=igneous state=restart
+  supervisorctl: name=igneous state=restarted
   
 - name: Delete Nginx cache
   sudo: true
