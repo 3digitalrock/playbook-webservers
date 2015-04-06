@@ -4,7 +4,7 @@
   
 - name: Get and add repo key
   sudo: true
-  command: wget -qO- http://download.rethinkdb.com/apt/pubkey.gpg | sudo apt-key add -
+  apt_key: url=http://download.rethinkdb.com/apt/pubkey.gpg
   
 - name: Install RethinkDB
   sudo: true
