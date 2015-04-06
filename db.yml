@@ -1,0 +1,5 @@
+# Configure and deploy the web server(s)
+- hosts: tag_testdb_true
+  user: ubuntu
+  roles:
+  - db
