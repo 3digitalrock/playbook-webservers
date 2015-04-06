@@ -1,0 +1,3 @@
+- name: restart supervisord
+  sudo: true
+  service: name=supervisord state=restarted enabled=yes
