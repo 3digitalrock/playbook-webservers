@@ -1,4 +1,6 @@
-# Configure and deploy the web server(s)
+---
+# This playbook configures and deploys the db server(s)
+
 - hosts: tag_testdb_true
   user: ubuntu
   roles:
