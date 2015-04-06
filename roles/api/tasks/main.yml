@@ -26,9 +26,13 @@
   notify:
   - restart supervisord
   
-- name: Start igneous
+- name: Make sure igneous has started
   sudo: true
   supervisorctl: name=igneous state=started
+  
+- name: Reload igneous
+  sudo: true
+  supervisorctl: name=igneous state=restart
   
 - name: Delete Nginx cache
   sudo: true
