@@ -8,7 +8,7 @@
   - common
 
 # Configure and deploy the API server(s)
-- hosts: tag_test_true
+- hosts: tag_testapi_true
   user: ubuntu
   roles:
   - nginx
@@ -16,9 +16,15 @@
   - api
 
 # Configure and deploy the web server(s)
-- hosts: tag_Type_sedimentary2
+- hosts: tag_testweb
   user: ubuntu
   roles:
   - nginx
   - nodejs
   - web
+
+# Configure and deploy the web server(s)
+- hosts: tag_testdb_true
+  user: ubuntu
+  roles:
+  - db
