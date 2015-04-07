@@ -13,6 +13,7 @@
         region: "{{ ec2_region }}"
         instance_id: "{{ ec2_id }}"
         ec2_elbs: Metamorphic
+        enable_availability_zone: false
         state: 'present'
 
 # Configure and deploy the API server(s)
