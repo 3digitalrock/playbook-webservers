@@ -1,0 +1,19 @@
+---
+# This playbook configures and deploys the API server(s).
+
+- hosts: tag_type_igneous
+  user: ubuntu
+  roles:
+  - common
+  - nginx
+  - nodejs
+  - api
+  post_tasks:
+    - name: Register instance(s) with ELB
+      local_action:
+        module: ec2_elb
+        region: "{{ ec2_region }}"
+        instance_id: "{{ ec2_id }}"
+        ec2_elbs: Igneous-VPC
+        state: 'present'
+        wait_timeout: 60
