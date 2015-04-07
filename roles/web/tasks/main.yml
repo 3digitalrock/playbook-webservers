@@ -44,3 +44,11 @@
 - name: Recreate Nginx cache
   sudo: true
   file: group=www-data owner=www-data mode=755 state=directory path=/var/cache/nginx
+
+- name: Download ruxit agent
+  get_url: url=https://yiuhjezdah.live.ruxit.com/installer/agent/unix/latest/dt1Ii5a7TPNWE3R9
+           dest=/home/ubuntu/ruxit-agent.sh
+           force=yes
+           
+- name: Install ruxit agent
+  script: /home/ubuntu/ruxit-agent.sh
