@@ -6,3 +6,7 @@
   sudo: true
   apt: pkg={{ item }} state=installed update-cache=yes
   with_items: nodejs_packages
+
+- name: Create symlink to 'node'
+  sudo: true
+  file: src=/usr/bin/nodejs dest=/usr/bin/node owner=root group=root state=link
