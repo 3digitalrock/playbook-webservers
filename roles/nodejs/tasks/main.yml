@@ -6,5 +6,3 @@
   sudo: true
   apt: pkg={{ item }} state=installed update-cache=yes
   with_items: nodejs_packages
-
-- include: supervisord.yml
