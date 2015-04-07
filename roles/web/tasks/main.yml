@@ -21,6 +21,7 @@
   copy: src=/var/lib/awx/configs/sedimentary.env dest=/var/www/sedimentary/config/.env group=ubuntu owner=ubuntu
 
 - name: Install Forever
+  sudo: yes
   npm: name=forever global=yes state=latest
   
 - name: Check list of Node.js apps running
