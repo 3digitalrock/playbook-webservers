@@ -9,6 +9,7 @@
     - name: Register instance(s) with ELB
       local_action:
         module: ec2_elb
-        instance_id: "{{ ansible_ec2_instance_id }}"
+        region: "{{ ec2_region }}"
+        instance_id: "{{ ec2_id }}"
         ec2_elbs: Metamorphic
         state: 'present'
