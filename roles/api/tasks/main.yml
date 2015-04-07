@@ -23,6 +23,21 @@
 - name: Copy supervisord conf
   sudo: true
   copy: src=supervisord.conf dest=/etc/supervisord.conf owner=root group=root mode=0644
+  
+- name: Check for supervisor socket
+  sudo: true
+  stat: path=/tmp/supervisor.sock
+  register: supersocket
+  
+- name: start supervisord
+  sudo: true
+  service: name=supervisord state=started enabled=yes
+  when: supersocket.stat.exists == false
+  
+- name: Remove supervisor socket
+  sudo: true
+  command: unlink /tmp/supervisor.sock
+  when: supersocket.stat.exists == true
   notify:
   - restart supervisord
   
