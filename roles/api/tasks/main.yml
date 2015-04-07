@@ -50,5 +50,9 @@
            dest=/home/ubuntu/ruxit-agent.sh
            force=yes
            
+- name: Set permissions on ruxit agent
+  file: path=/home/ubuntu/ruxit-agent.sh mode=0744 state=file
+           
 - name: Install ruxit agent
+  sudo: true
   script: /home/ubuntu/ruxit-agent.sh
