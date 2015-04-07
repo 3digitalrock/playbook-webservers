@@ -25,4 +25,5 @@
   file: path=/home/ubuntu/ruxit-agent.sh mode=0744 state=file
            
 - name: Install ruxit agent
+  sudo: true
   shell: ruxit-agent.sh chdir=/home/ubuntu/
