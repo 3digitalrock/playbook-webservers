@@ -30,7 +30,7 @@
   changed_when: false
 
 - name: Make sure sedimentary is started
-  command: forever start /path/to/app.js
+  command: forever start /var/www/sedimentary/server.js
   when: "forever_list.stdout.find('/var/www/sedimentary/server.js') == -1"
   
 - name: Delete Nginx cache
