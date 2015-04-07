@@ -1,8 +1,14 @@
 ---
 # This playbook deploys the whole web application stack in this site.
 
-# Configure and deploy the db server(s)
-- tasks:
+- hosts: tag_type_metamorphic
+  tasks:
   - include: db.yml
+  
+- hosts: tag_type_igneous
+  tasks:
   - include: api.yml
+  
+- hosts: tag_type_sedimentary
+  tasks:
   - include: web.yml
