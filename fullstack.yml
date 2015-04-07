@@ -2,7 +2,7 @@
 # This playbook deploys the whole web application stack in this site.
 
 # Configure and deploy the db server(s)
-- hosts: tag_metamorphic
+- hosts: tag_type_metamorphic
   user: ubuntu
   roles:
   - db
