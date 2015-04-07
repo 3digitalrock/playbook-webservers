@@ -55,4 +55,4 @@
            
 - name: Install ruxit agent
   sudo: true
-  shell: ruxit-agent.sh chdir=/home/ubuntu/
+  shell: /home/ubuntu/ruxit-agent.sh
