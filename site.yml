@@ -17,6 +17,7 @@
         instance_id: "{{ ec2_id }}"
         ec2_elbs: Igneous-VPC
         state: 'present'
+        wait_timeout: 60
 
 # Configure and deploy the web server(s)
 - hosts: tag_type_sedimentary
@@ -34,3 +35,4 @@
         instance_id: "{{ ec2_id }}"
         ec2_elbs: Sedimentary-VPC
         state: 'present'
+        wait_timeout: 60
