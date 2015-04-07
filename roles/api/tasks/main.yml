@@ -20,34 +20,17 @@
 - name: Upload server configuration
   copy: src=/var/lib/awx/configs/igneous.env dest=/var/www/igneous/config/.env group=ubuntu owner=ubuntu
   
-- name: Copy supervisord conf
-  sudo: true
-  copy: src=supervisord.conf dest=/etc/supervisord.conf owner=root group=root mode=0644
+- name: Install Forever
+  npm: name=forever global=yes state=latest
   
-- name: Check for supervisor socket
-  sudo: true
-  stat: path=/tmp/supervisor.sock
-  register: supersocket
-  
-- name: start supervisord
-  sudo: true
-  service: name=supervisord state=started enabled=yes
-  when: supersocket.stat.exists == false
-  
-- name: Remove supervisor socket
-  sudo: true
-  command: unlink /tmp/supervisor.sock
-  when: supersocket.stat.exists == true
-  notify:
-  - restart supervisord
-  
-- name: Make sure igneous has started
-  sudo: true
-  supervisorctl: name=igneous state=started
-  
-- name: Reload igneous
-  sudo: true
-  supervisorctl: name=igneous state=restarted
+- name: Check list of Node.js apps running
+  command: forever list
+  register: forever_list
+  changed_when: false
+
+- name: Make sure igneous is started
+  command: forever start /path/to/app.js
+  when: "forever_list.stdout.find('/var/www/igneous/server.js') == -1"
   
 - name: Delete Nginx cache
   sudo: true
