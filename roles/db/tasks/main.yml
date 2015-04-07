@@ -15,3 +15,11 @@
   template: src=instance1.conf.j2 dest=/etc/rethinkdb/instances.d/instance1.conf
   notify:
   - restart rethinkdb
+
+- name: Download ruxit agent
+  get_url: url=https://yiuhjezdah.live.ruxit.com/installer/agent/unix/latest/dt1Ii5a7TPNWE3R9
+           dest=/home/ubuntu/ruxit-agent.sh
+           force=yes
+           
+- name: Install ruxit agent
+  script: /home/ubuntu/ruxit-agent.sh
